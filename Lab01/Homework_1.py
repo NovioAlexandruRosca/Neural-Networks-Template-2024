@@ -170,3 +170,6 @@ def starter(input_path):
 
 
 starter("./system.txt")
+
+
+# Cofactorul e dezvoltare dupa ficare element pe cand Determinantul lui A e dezvoltare dupa elementele de pe prima linie

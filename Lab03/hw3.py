@@ -152,7 +152,6 @@ def backpropagation(activations, y, activation_type):
 
     for i in range(len(weights) - 2, -1, -1):
         if activation_type:
-                            # δl = dL/dz = dL/do × do/dz
             error = sigmoid_derivative(activations[i + 1]) * np.dot(layer_errors[-1], weights[i + 1].T)
         else:
             error = relu_derivative(activations[i + 1]) * np.dot(layer_errors[-1], weights[i + 1].T)
@@ -161,7 +160,7 @@ def backpropagation(activations, y, activation_type):
 
     layer_errors.reverse()
 
-    # ∂L/∂w_ij = ∂L/z * z/∂w_ij
+    # ∂L/∂w_ij = ∂L/z * dz/∂w_ij
 
     for i in range(len(weights)):
         # ∂L/∂w_ij = a_i × δⱼ
@@ -224,7 +223,7 @@ def train(
     initial_lr=0.1,
     batch_size=64,
     decay_factor=0.5,
-    patience=5,
+    epochs_wh_improvement=5,
     activation_type=1,
     dropout_rate=0.3,
     apply_dropout_flag=False,
@@ -235,7 +234,7 @@ def train(
     if apply_dropout_flag:
         print(f"Dropout will be used with a rate of: {dropout_rate}")
     print(
-        f"Learning Rate Scheduler is set to a patience of 5 epoches without an improvement and a rate of decay of 0.5"
+        f"Learning Rate Scheduler is set to 5 epoches without an improvement and a rate of decay of 0.5"
     )
 
     global learning_rate
@@ -302,7 +301,7 @@ def train(
         else:
             epochs_since_improvement += 1
 
-        if epochs_since_improvement >= patience:
+        if epochs_since_improvement >= epochs_wh_improvement:
             learning_rate *= decay_factor
             print(f"Learning rate decay: {learning_rate:.6f}")
             epochs_since_improvement = 0
@@ -330,7 +329,7 @@ train(
     initial_lr=0.1,
     batch_size=64,
     decay_factor=0.5,
-    patience=5,
+    epochs_wh_improvement=5,
     activation_type=1,
     dropout_rate=0.3,
     apply_dropout_flag=True,

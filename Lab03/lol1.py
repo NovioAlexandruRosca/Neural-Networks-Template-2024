@@ -104,13 +104,19 @@ def backpropagation(x, y, a_hidden, a_output, lambda_l2=0.01):
     error_output = a_output - y
     gradient_output = np.dot(a_hidden.T, error_output)
 
-    error_hidden = np.dot(error_output, weights_hidden_output.T) * sigmoid_derivative(a_hidden)
+    error_hidden = np.dot(error_output, weights_hidden_output.T) * sigmoid_derivative(
+        a_hidden
+    )
     gradient_hidden = np.dot(x.T, error_hidden)
 
-    weights_hidden_output -= learning_rate * (gradient_output + lambda_l2 * weights_hidden_output)
+    weights_hidden_output -= learning_rate * (
+        gradient_output + lambda_l2 * weights_hidden_output
+    )
     bias_output -= learning_rate * np.sum(error_output, axis=0, keepdims=True)
 
-    weights_input_hidden -= learning_rate * (gradient_hidden + lambda_l2 * weights_input_hidden)
+    weights_input_hidden -= learning_rate * (
+        gradient_hidden + lambda_l2 * weights_input_hidden
+    )
     bias_hidden -= learning_rate * np.sum(error_hidden, axis=0, keepdims=True)
 
 

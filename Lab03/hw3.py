@@ -148,13 +148,17 @@ def cross_entropy_loss(predictions, targets):
 
 def backpropagation(activations, y, activation_type):
     global weights, biases
-    layer_errors = [activations[-1] - y]            # ∂L/∂zL (ultimul layer) aka δL
+    layer_errors = [activations[-1] - y]  # ∂L/∂zL (ultimul layer) aka δL
 
     for i in range(len(weights) - 2, -1, -1):
         if activation_type:
-            error = sigmoid_derivative(activations[i + 1]) * np.dot(layer_errors[-1], weights[i + 1].T)
+            error = sigmoid_derivative(activations[i + 1]) * np.dot(
+                layer_errors[-1], weights[i + 1].T
+            )
         else:
-            error = relu_derivative(activations[i + 1]) * np.dot(layer_errors[-1], weights[i + 1].T)
+            error = relu_derivative(activations[i + 1]) * np.dot(
+                layer_errors[-1], weights[i + 1].T
+            )
 
         layer_errors.append(error)
 
@@ -173,30 +177,42 @@ def backpropagation(activations, y, activation_type):
 def plot_history(training_history):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
 
-    ax1.plot(training_history['train_loss'], label='Train Loss')
-    ax1.plot(training_history['val_loss'], label='Validation Loss')
-    ax1.set_title('Loss History')
-    ax1.set_xlabel('Epoch')
-    ax1.set_ylabel('Loss')
+    ax1.plot(training_history["train_loss"], label="Train Loss")
+    ax1.plot(training_history["val_loss"], label="Validation Loss")
+    ax1.set_title("Loss History")
+    ax1.set_xlabel("Epoch")
+    ax1.set_ylabel("Loss")
     ax1.legend()
 
-    ax2.plot(training_history['train_acc'], label='Train Accuracy')
-    ax2.plot(training_history['val_acc'], label='Validation Accuracy')
-    ax2.set_title('Accuracy History')
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Accuracy')
+    ax2.plot(training_history["train_acc"], label="Train Accuracy")
+    ax2.plot(training_history["val_acc"], label="Validation Accuracy")
+    ax2.set_title("Accuracy History")
+    ax2.set_xlabel("Epoch")
+    ax2.set_ylabel("Accuracy")
     ax2.legend()
 
     plt.tight_layout()
     plt.show()
 
 
-def predictions_visualizer(x_val, y_val, num_samples, activation_type=1, dropout_rate=0.3, apply_dropout_flag=False):
+def predictions_visualizer(
+    x_val,
+    y_val,
+    num_samples,
+    activation_type=1,
+    dropout_rate=0.3,
+    apply_dropout_flag=False,
+):
     indices = np.random.choice(len(x_val), num_samples, replace=False)
     samples = x_val[indices]
     true_labels = np.argmax(y_val[indices], axis=1)
 
-    activations = forward_propagation(samples, activation_type, dropout_rate=dropout_rate, apply_dropout_flag=apply_dropout_flag)
+    activations = forward_propagation(
+        samples,
+        activation_type,
+        dropout_rate=dropout_rate,
+        apply_dropout_flag=apply_dropout_flag,
+    )
     predicted_labels = np.argmax(activations[-1], axis=1)
 
     print("\nSample Predictions:")
@@ -209,7 +225,7 @@ def predictions_visualizer(x_val, y_val, num_samples, activation_type=1, dropout
 
         if true_label != pred_label:
             print(f"Misclassified image index: {indices[i]}")
-            plt.imshow(samples[i].reshape(28, 28), cmap='gray')
+            plt.imshow(samples[i].reshape(28, 28), cmap="gray")
             plt.title(f"True: {true_label}, Predicted: {pred_label}")
             plt.show()
 
@@ -246,10 +262,10 @@ def train(
     start_time = time.time()
 
     training_history = {
-        'train_loss': [],
-        'val_loss': [],
-        'train_acc': [],
-        'val_acc': []
+        "train_loss": [],
+        "val_loss": [],
+        "train_acc": [],
+        "val_acc": [],
     }
 
     for epoch in range(epochs):
@@ -284,10 +300,10 @@ def train(
         train_labels = np.argmax(y_train, axis=1)
         train_accuracy = np.mean(train_predictions == train_labels)
 
-        training_history['train_loss'].append(train_loss)
-        training_history['val_loss'].append(val_loss)
-        training_history['train_acc'].append(train_accuracy)
-        training_history['val_acc'].append(accuracy)
+        training_history["train_loss"].append(train_loss)
+        training_history["val_loss"].append(val_loss)
+        training_history["train_acc"].append(train_accuracy)
+        training_history["val_acc"].append(accuracy)
 
         print(
             f"Epoch {epoch + 1}/{epochs}, Learning Rate: {learning_rate:.4f}, Best Val Loss: {best_val_loss:.4f}, Val "
@@ -311,13 +327,22 @@ def train(
 
         if accuracy > 0.95 and accuracy_met:
             accuracy_met = False
-            print(f"Accuracy of at least 95% was achieved after: {time.time() - start_time:.2f} seconds")
+            print(
+                f"Accuracy of at least 95% was achieved after: {time.time() - start_time:.2f} seconds"
+            )
 
     end_time = time.time()
     total_time = end_time - start_time
     print(f"Training time: {total_time:.2f} seconds")
     plot_history(training_history)
-    predictions_visualizer(x_val, y_val, num_samples=100, activation_type=1, dropout_rate=0.3, apply_dropout_flag=True)
+    predictions_visualizer(
+        x_val,
+        y_val,
+        num_samples=100,
+        activation_type=1,
+        dropout_rate=0.3,
+        apply_dropout_flag=True,
+    )
 
 
 train(

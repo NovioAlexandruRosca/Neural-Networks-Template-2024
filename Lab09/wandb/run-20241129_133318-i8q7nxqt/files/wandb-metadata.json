@@ -1,0 +1,43 @@
+{
+  "os":  "Windows-10-10.0.19045-SP0",
+  "python":  "3.11.4",
+  "startedAt":  "2024-11-29T11:33:18.544864Z",
+  "program":  "D:\\Fac3\\Neural-Networks-Template-2024\\Lab09\\hw4.py",
+  "codePath":  "Lab09\\hw4.py",
+  "git":  {
+    "remote":  "git@github.com:NovioAlexandruRosca/Neural-Networks-Template-2024.git",
+    "commit":  "8c7e42a309e3487051806adda55f2e8c77ad7fac"
+  },
+  "email":  "alexandrurosca434@gmail.com",
+  "root":  "D:\\Fac3\\Neural-Networks-Template-2024\\Lab09",
+  "host":  "DESKTOP-DGM50MU",
+  "username":  "Alex",
+  "executable":  "C:\\Users\\Alex\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+  "codePathLocal":  "hw4.py",
+  "cpu_count":  6,
+  "cpu_count_logical":  12,
+  "gpu":  "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "302393585664",
+      "used":  "235810545664"
+    }
+  },
+  "memory":  {
+    "total":  "16480006144"
+  },
+  "cpu":  {
+    "count":  6,
+    "countLogical":  12
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+      "memoryTotal":  "4294967296",
+      "cudaCores":  2560,
+      "architecture":  "Ampere"
+    }
+  ],
+  "cudaVersion":  "12.6"
+}
